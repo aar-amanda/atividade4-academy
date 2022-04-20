@@ -3,13 +3,11 @@ Feature: Listar usuários
     Desejo vizualizar a lista de usuários cadastrados
     Para ter as informações sobre todos os usuários
 
-    Background: Base url
-        Given url "https://crud-api-academy.herokuapp.com/api-docs/"
+    Scenario: Listar todos os usuários cadastrados
+        * def chocolate = call read("hook.feature@meusdogs")
+        Given url "https://crud-api-academy.herokuapp.com/api/v1"
         And path "users"
-
-    # 1_Cenário de teste de listar usuário 
-        Scenario: Listar todos os usuários cadastrados
-            When method get
-            Then status 200
-            And match response == "#array"
-            And match each response contains read ('responseFormat.json')
+        When method get
+        Then status 200
+        And match response == "#array"
+        And match response contains {id: "#string", name: "#string", email: "#string", createdAt: "#string", updatedAt: "#string"}
